@@ -8,7 +8,50 @@
 <style>
 body {
   margin: 0;
-  font-family: Arial, sans-serif;
+  font-family: 'Georgia', serif;
+  background: #0f0f0f;
+  color: white;
+  scroll-behavior: smooth;
+}
+
+.section {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  text-align: center;
+  padding: 20px;
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 1s ease;
+}
+
+.section.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero {
+  background: linear-gradient(to bottom, #000000aa, #000000aa), url('foto1.jpg') center/cover;
+}
+
+h1 {
+  font-size: 32px;
+  letter-spacing: 2px;
+}
+
+h2 {
+  font-weight: normal;
+}
+
+.button {
+  padding: 12px 20px;
+  background: gold;
+  border-radius: 8px;
+  margin-top: 20px;
+  text-decoration: none;
+  color: black;
 }
 
 /* OPENING */
@@ -42,19 +85,29 @@ body {
 }
 
 /* ISI */
-#content {
-  display: none;
-  padding: 40px 20px;
-  text-align: center;
-}
+<div id="content">
 
-.section {
-  margin-bottom: 50px;
-}
-</style>
-</head>
+  <div class="section hero">
+    <h1>Undangan Pernikahan</h1>
+    <p>Dengan penuh sukacita kami mengundang Anda</p>
+  </div>
 
-<body>
+  <div class="section">
+    <h1>Andi & Sari</h1>
+    <p>Putra & Putri</p>
+  </div>
+
+  <div class="section">
+    <h2>Sabtu, 20 Desember 2026</h2>
+    <p>Pukul 10.00 WITA</p>
+  </div>
+
+  <div class="section">
+    <h2>Lokasi Acara</h2>
+    <a class="button" href="https://maps.google.com" target="_blank">Buka Maps</a>
+  </div>
+
+</div>
 
 <!-- OPENING -->
 <div id="opening" class="opening">
@@ -112,6 +165,17 @@ const nama = urlParams.get('to');
 if (nama) {
   document.getElementById("namaTamu").innerText = nama;
 }
+<script>
+const sections = document.querySelectorAll('.section');
+
+window.addEventListener('scroll', () => {
+  sections.forEach(sec => {
+    const top = sec.getBoundingClientRect().top;
+    if (top < window.innerHeight - 100) {
+      sec.classList.add('show');
+    }
+  });
+});
 </script>
 
 </body>
