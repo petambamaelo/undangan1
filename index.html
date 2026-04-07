@@ -3,202 +3,115 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Undangan Andi & Rina</title>
+<title>Undangan Digital</title>
 
 <style>
 body {
-  margin:0;
-  font-family:'Segoe UI', sans-serif;
-  background:#fdfaf6;
-  text-align:center;
-  color:#333;
-  scroll-behavior:smooth;
+  margin: 0;
+  font-family: Arial, sans-serif;
+}
+
+/* OPENING */
+.opening {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(to bottom, #000000cc, #000000cc), url('foto1.jpg') center/cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  z-index: 9999;
+  color: white;
+}
+
+.opening-content h1 {
+  font-size: 28px;
+  margin: 10px 0;
+}
+
+.opening-content button {
+  padding: 12px 20px;
+  background: gold;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 20px;
+}
+
+/* ISI */
+#content {
+  display: none;
+  padding: 40px 20px;
+  text-align: center;
 }
 
 .section {
-  padding:60px 20px;
-  opacity:0;
-  transform:translateY(40px);
-  transition:1s;
-}
-
-.section.show {
-  opacity:1;
-  transform:translateY(0);
-}
-
-h1 { font-size:36px; }
-h2 { color:#8b5e3c; }
-
-.photo {
-  width:85%;
-  max-width:320px;
-  border-radius:20px;
-}
-
-.btn {
-  padding:12px 20px;
-  background:#8b5e3c;
-  color:#fff;
-  border:none;
-  border-radius:10px;
-  margin:5px;
-}
-
-.gallery img {
-  width:90%;
-  max-width:300px;
-  margin:10px;
-  border-radius:15px;
-}
-
-input, textarea {
-  width:80%;
-  max-width:300px;
-  padding:10px;
-  margin:5px;
-  border-radius:8px;
-  border:1px solid #ccc;
-}
-
-.ucapan-box {
-  background:white;
-  margin:10px auto;
-  padding:10px;
-  width:80%;
-  max-width:300px;
-  border-radius:10px;
-  text-align:left;
+  margin-bottom: 50px;
 }
 </style>
 </head>
 
 <body>
 
-<!-- HERO -->
-<div class="section">
-  <h2>Undangan Pernikahan</h2>
-  <h1>Andi & Rina</h1>
-  <img src="foto2.jpg" class="photo">
+<!-- OPENING -->
+<div id="opening" class="opening">
+  <div class="opening-content">
+    <h2>Kepada Yth:</h2>
+    <h1 id="Agnes">Tamu Undangan</h1>
+    <p>Di Tempat</p>
+
+    <button onclick="bukaUndangan()">Buka Undangan</button>
+  </div>
 </div>
 
-<!-- INFO -->
-<div class="section">
-  <p>20 April 2026</p>
-</div>
+<!-- ISI UNDANGAN -->
+<div id="content">
 
-<!-- LOKASI -->
-<div class="section">
-  <h2>Lokasi</h2>
+  <div class="section">
+    <h1>Undangan Pernikahan</h1>
+    <p>Kami mengundang Anda untuk hadir di acara kami</p>
+  </div>
 
-  <p><b>Pemberkatan</b></p>
-  <a href="https://maps.app.goo.gl/8ke7cwbiK6soDW56A" class="btn">📍 Lihat Lokasi</a>
+  <div class="section">
+    <h2>Novry & Miaa</h2>
+    <p>Putra & Putri</p>
+  </div>
 
-  <p><b>Resepsi</b></p>
-  <a href="https://maps.app.goo.gl/QBbNSNXdUPro954C7" class="btn">📍 Lihat Lokasi</a>
-</div>
+  <div class="section">
+    <h2>Waktu Acara</h2>
+    <p>Sabtu, 20 Desember 2026</p>
+    <p>Pukul 10.00 WITA</p>
+  </div>
 
-<!-- COUNTDOWN -->
-<div class="section">
-  <h2>Hitung Mundur</h2>
-  <h3 id="countdown"></h3>
-</div>
+  <div class="section">
+    <h2>Lokasi</h2>
+    <a href="https://maps.google.com" target="_blank">Klik Lokasi</a>
+  </div>
 
-<!-- GALERI -->
-<div class="section gallery">
-  <h2>Galeri</h2>
-  <img src="foto2.jpg">
-  <img src="foto3.jpg.jpg">
-  <img src="foto4.jpg.PNG">
-</div>
-
-<!-- RSVP WA -->
-<div class="section">
-  <h2>Konfirmasi Kehadiran</h2>
-  <input type="text" id="namaWA" placeholder="Nama">
-  <textarea id="pesanWA" placeholder="Jumlah hadir / pesan"></textarea><br>
-  <button onclick="kirimWA()" class="btn">Kirim ke WhatsApp</button>
-</div>
-
-<!-- UCAPAN -->
-<div class="section">
-  <h2>Ucapan & Doa</h2>
-
-  <input type="text" id="nama" placeholder="Nama">
-  <textarea id="pesan" placeholder="Tulis ucapan"></textarea><br>
-  <button onclick="tambahUcapan()" class="btn">Kirim Ucapan</button>
-
-  <div id="listUcapan"></div>
 </div>
 
 <script>
-// ANIMASI
-const sections = document.querySelectorAll(".section");
-window.addEventListener("scroll", () => {
-  sections.forEach(sec => {
-    if(sec.getBoundingClientRect().top < window.innerHeight - 100){
-      sec.classList.add("show");
-    }
-  });
-});
+// tombol buka undangan
+function bukaUndangan() {
+  document.getElementById("opening").style.display = "none";
+  document.getElementById("content").style.display = "block";
 
-// COUNTDOWN (DETAIL)
-const target = new Date("Apr 20, 2026 10:00:00").getTime();
-
-setInterval(() => {
-  const now = new Date().getTime();
-  const d = target - now;
-
-  const hari = Math.floor(d/(1000*60*60*24));
-  const jam = Math.floor((d%(1000*60*60*24))/(1000*60*60));
-  const menit = Math.floor((d%(1000*60*60))/(1000*60));
-  const detik = Math.floor((d%(1000*60))/1000);
-
-  document.getElementById("countdown").innerHTML =
-    hari+" Hari "+jam+" Jam "+menit+" Menit "+detik+" Detik";
-},1000);
-
-// WHATSAPP
-function kirimWA(){
-  const nama = document.getElementById("namaWA").value;
-  const pesan = document.getElementById("pesanWA").value;
-  const noWA = "6282248464685";
-
-  const text = `Halo, saya ${nama}%0A${pesan}`;
-  window.open(`https://wa.me/${noWA}?text=${text}`);
-}
-
-// UCAPAN (TERSIMPAN DI BROWSER)
-function tambahUcapan(){
-  const nama = document.getElementById("nama").value;
-  const pesan = document.getElementById("pesan").value;
-
-  let data = JSON.parse(localStorage.getItem("ucapan")) || [];
-
-  data.push({nama, pesan});
-  localStorage.setItem("ucapan", JSON.stringify(data));
-
-  tampilUcapan();
-}
-
-// TAMPILKAN UCAPAN
-function tampilUcapan(){
-  const list = document.getElementById("listUcapan");
-  list.innerHTML = "";
-
-  let data = JSON.parse(localStorage.getItem("ucapan")) || [];
-
-  data.reverse().forEach(item => {
-    list.innerHTML += `
-      <div class="ucapan-box">
-        <b>${item.nama}</b><br>
-        ${item.pesan}
-      </div>
-    `;
+  window.scrollTo({
+    top: 0,
+    behavior: "smooth"
   });
 }
 
-tampilUcapan();
+// ambil nama dari link
+const urlParams = new URLSearchParams(window.location.search);
+const nama = urlParams.get('to');
+
+if (nama) {
+  document.getElementById("namaTamu").innerText = nama;
+}
 </script>
 
 </body>
